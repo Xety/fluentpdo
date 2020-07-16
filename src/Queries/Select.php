@@ -208,6 +208,20 @@ class Select extends Common implements \Countable
     }
 
     /**
+     * \Countable interface doesn't break current select query
+     *
+     * @throws Exception
+     *
+     * @return int
+     */
+    public function sum($column)
+    {
+        $fluent = clone $this;
+
+        return (int)$fluent->select('SUM(' . $column . ')', true)->fetchColumn();
+    }
+
+    /**
      * @throws Exception
      *
      * @return \ArrayIterator|\PDOStatement
